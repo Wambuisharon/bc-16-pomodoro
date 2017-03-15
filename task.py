@@ -4,10 +4,11 @@ class Task():
 	duration = 0
 	short_break= 0
 	long_break = 0
+	alarm = True
 	
 
 
-	def __init__(self,name,duration=6000, short_break=360,long_break=600,cycle_time=1500):	
+	def __init__(self,name,duration=6000, cycle_time=1500, short_break=360,long_break=600,alarm=True):	
 
 		self.name=name
 		self.cycle_time =cycle_time
@@ -65,4 +66,3 @@ def play_sound():
     uri ="bell.mp3"
     os.system('cvlc ' + uri + ' vlc://quit > /dev/null 2>&1')
 
-play_sound()
