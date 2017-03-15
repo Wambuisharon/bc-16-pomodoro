@@ -17,14 +17,22 @@ class pomodoro_timer(object):
         self.short_break_function()
         self.long_break_function()
         self.timer("00:00:06")
+        self.cycle()
 
 
-      ''' variable cycles 
-       while cycle < 3:
-         timer(add_task_time)
-         short_break_function()
-         cycle +1
-         long_break_function() '''
+    def cycle(self):   
+
+        cycle = 0
+
+
+        while cycle <=3:
+            self.timer(self.add_task_time)
+            self.short_break_function(self.short_break)
+            self.cycle +1
+            self.long_break_function(self.long_break) 
+
+
+
 
         
     
@@ -51,8 +59,8 @@ class pomodoro_timer(object):
             self.choice = "00:25:00"
             print "DEFAULT TIME : %s" % self.choice
             self.choice = self.choice.split(':')
-            for items in [0, 1, 2]:'''Checking if the input follows the require input format'''
-            self.choice[items] = int(self.choice[items])
+            for items in [0, 1, 2]: #Checking if the input follows the require input format'''
+                self.choice[items] = int(self.choice[items])
             return self.choice
         elif self.choice=="1":
             self.tt = raw_input("set time ....use {hh:mm:ss}format")
