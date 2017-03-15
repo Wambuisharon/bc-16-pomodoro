@@ -3,7 +3,7 @@ from task import Task
 
 
 class Storage():
-    conn = 0
+    conn = None
 
     def __init__(self):
         self.conn = sqlite3.connect("tasks.db")
@@ -21,16 +21,18 @@ class Storage():
         c = self.conn.cursor()
         tasks = []
         for row in c.execute('SELECT name,duration,cycle_time,short_break,long_break,day,alarm, status FROM tasks'):
-            t = Task(row[0], row[1], row[2], row[3], bool(row[4]) ,row[5],row[6])
+            t = Task(row[0], row[1], row[2], row[3], False, row[5], row[6])
+            if row[4] > 0: t.alarm = True
             tasks.append(t)
         return tasks
 
     def save(self, task):
         c = self.conn.cursor()
         today = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-        fields = [task.name, task.duration, task.cycle_time, task.long_break, task.short_break, today, alarm ,task.status]
+        fields = [task.name, task.duration, task.cycle_time, task.long_break, task.short_break, today, task.alarm,
+                  task.status]
 
-        sql = "INSERT into tasks (`name`,duration,cycle_time,long_break,short_break,`day`,status)" \
+        sql = "INSERT into tasks (`name`,duration,cycle_time,long_break,short_break,`day`,alarm, status)" \
               " VALUES(?,?,?,?,?,?,?,?)"
         c.execute(sql, fields)
         self.conn.commit()
