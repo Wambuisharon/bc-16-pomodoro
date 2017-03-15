@@ -19,7 +19,7 @@ class Task():
 		counter = self.long_break
 		while counter > 0:
 			sys.stdout.write('\rLONG BREAK:' + seconds_to_time(self.time_left))
-	    	sys.stdout.flush()
+			sys.stdout.flush()
 			time.sleep(1)
 			counter -=1	
 
@@ -28,7 +28,7 @@ class Task():
 		counter = self.short_break
 		while counter > 0:
 			sys.stdout.write('\rSHORT BREAK:' + seconds_to_time(self.time_left))
-	    	sys.stdout.flush()
+			sys.stdout.flush()
 			time.sleep(1)
 			counter -=1	
 
@@ -58,4 +58,11 @@ class Task():
 def seconds_to_time(seconds):
 	m, s =divmod(seconds, 60)	
 	h, s =divmod(m, 60)	
-	return "%d:%02d:%02d" %(h, m, s)	 	
+	return "%d:%02d:%02d" %(h, m, s)	 
+
+def play_sound():
+    import os
+    uri ="bell.mp3"
+    os.system('cvlc ' + uri + ' vlc://quit > /dev/null 2>&1')
+
+play_sound()
