@@ -21,7 +21,7 @@ class Storage():
         c = self.conn.cursor()
         tasks = []
         for row in c.execute('SELECT name,duration,cycle_time,short_break,long_break,day,alarm, status FROM tasks'):
-            t = Task(row[0], row[1], row[2], row[3], bool(row[4]) ,row[5])
+            t = Task(row[0], row[1], row[2], row[3], bool(row[4]) ,row[5],row[6])
             tasks.append(t)
         return tasks
 

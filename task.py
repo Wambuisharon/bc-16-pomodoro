@@ -5,16 +5,19 @@ class Task():
 	short_break= 0
 	long_break = 0
 	alarm = True
+	day =''
 	
 
 
-	def __init__(self,name,duration=6000, cycle_time=1500, short_break=360,long_break=600,alarm=True):	
+	def __init__(self,name,duration=6000, cycle_time=1500, short_break=360,long_break=600,day='',alarm=True):	
 
 		self.name=name
 		self.cycle_time =cycle_time
 		self.short_break=short_break
 		self.long_break =long_break
 		self.duration = duration
+		self.alarm = alarm
+		self.day = day
 
 	def go_long_break(self):
 		counter = self.long_break
