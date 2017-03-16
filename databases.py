@@ -18,7 +18,7 @@ class Storage():
         pass
 
     def get(self):
-        c = self.conn.cursor()
+        c = self.conn.cursor() #initialize conn to the db
         tasks = []
         for row in c.execute('SELECT name,duration,cycle_time,short_break,long_break,day,alarm, status FROM tasks'):
             t = Task(row[0], row[1], row[2], row[3], False, row[5], row[6])
@@ -33,7 +33,7 @@ class Storage():
                   task.status]
 
         sql = "INSERT into tasks (`name`,duration,cycle_time,long_break,short_break,`day`,alarm, status)" \
-              " VALUES(?,?,?,?,?,?,?,?)"
+              " VALUES(?,?,?,?,?,?,?,?)"   #parameta bind
         c.execute(sql, fields)
         self.conn.commit()
 

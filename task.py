@@ -38,8 +38,8 @@ class Task:
             play_sound()
         counter = self.short_break
         while counter > 0:
-            sys.stdout.write("\033[2J\033[;H")
-            sys.stdout.write(ascii_art('Short break Left: ' + seconds_to_time(counter)))
+            sys.stdout.write("\033[2J\033[;H") #clear screen 
+            sys.stdout.write(ascii_art('Short break Left: ' + seconds_to_time(counter))) #conver text
             sys.stdout.flush()
             time.sleep(1)
             counter -= 1
@@ -55,7 +55,7 @@ class Task:
         self.status = 'running'
         self.time_left = self.duration
 
-        counter = 0
+        counter = 0 #cyle time
         while self.status == 'running' and self.time_left > 0:
             time.sleep(1)
             self.time_left -= 1
@@ -105,7 +105,7 @@ def play_sound():
     (PlayThread()).run()
 
 
-def ascii_art(string):
+def ascii_art(string):#format text ....set up figlet
     from colorama import init
     init(strip=not sys.stdout.isatty())  # strip colors if stdout is redirected
     from pyfiglet import figlet_format

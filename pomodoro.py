@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from __future__ import print_function
-import signal, sys, time
+
+import signal, sys, time #capture keyboard interupt ctr c
 
 from task import Task
 from databases import Storage
@@ -45,7 +45,7 @@ def print_usage():
 
 
 def get_time(source):
-    times = source.split(":")[::-1]
+    times = source.split(":")[::-1] #revease to start with seconds
     seconds = 0
     current_multiplier = 1
     for time in times:
@@ -65,7 +65,7 @@ def stop_timer(signum, frame):
     else:
         sys.exit(0)
 
-
+# instead of closing it calls the function above
 signal.signal(signal.SIGINT, stop_timer)
 
 
@@ -127,7 +127,7 @@ def interactive():
     task.start()
 
 
-if len(sys.argv) == 1:
+if len(sys.argv) == 1: #checks for no of arg
     print_usage()
     commands()
 else:
