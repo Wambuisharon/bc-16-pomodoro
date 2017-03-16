@@ -1,8 +1,7 @@
 import time, sys
 
 
-class Task:
-    #class variable shared by all instances
+class Task: #class variables
     name = ''
     status = 'pending'
     cycle_time = 0
@@ -51,8 +50,6 @@ class Task:
             time.sleep(1)
             self.time_left -= 1
             counter += 1
-
-            sys.stdout.write('\r                                             ')
             sys.stdout.write('\rTime left: ' + seconds_to_time(self.time_left))
             sys.stdout.flush()
             # checking for break

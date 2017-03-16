@@ -3,7 +3,7 @@ from task import Task
 
 
 class Storage():
-    conn = None
+    conn = 0
 
     def __init__(self):
         self.conn = sqlite3.connect("tasks.db")
