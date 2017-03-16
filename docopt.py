@@ -22,6 +22,9 @@ Options:
 import sys
 import cmd
 from docopt import docopt, DocoptExit
+from task import Task 
+
+tasks =  Task()
 
 
 def docopt_cmd(func):
@@ -56,16 +59,50 @@ def docopt_cmd(func):
 
 
 class MyInteractive (cmd.Cmd):
-    intro = 'Welcome to my interactive program!' \
-        + ' (type help for a list of commands.)'
-    prompt = '(my_program) '
+    intro = 'POMODORO_TIMER!' \
+        + ' (type help for a list of commands.)' //replace
+    prompt = '(POMODORO_TIMER) '
     file = None
 
     @docopt_cmd
-    def do_tcp(self, arg):
-        """Usage: tcp <host> <port> [--timeout=<seconds>]"""
+    def do_start(self, arg): 
+        """Usage: start <task_name> """
 
-        print(arg)
+        print(tasks.start(arg["<task_name>"]))
+    def do_config_time(self, arg): 
+        """Usage: config_time <task_duration> """
+
+        print(tasks.start(arg["<task_name>"]))
+
+    def do_config_short_break(self,arg):
+        """Usage: config_short_break<short_break>"""
+
+        print(tasks.short_break(arg["<short_break>"])) 
+
+    def do_config_long_break(self,arg):
+        """Usage: config_long_break<"long_break>"""
+
+        print(tasks.long_break(arg["<long_break>"])) 
+
+    '''def do_stop(self,arg):
+        """Usage: stop<"stop">"""
+        print(tasks.stop(arg["stop"]))'''
+
+    def do_list(self,arg):
+        """Usage: list <list>"""
+
+        print(tasks.list(arg["<list>"]))
+
+
+    def do_sound(self,arg):
+        """Usage: sound <sound>"""
+
+        print (tasks.sound(arg["<sound>"]))
+
+
+
+
+
 
     @docopt_cmd
     def do_serial(self, arg):
