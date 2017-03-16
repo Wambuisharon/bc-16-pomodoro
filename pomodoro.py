@@ -3,19 +3,30 @@ from __future__ import print_function
 import signal, sys, time
 
 from task import Task
-from databases import Storage
+from database import Storage
 from task import seconds_to_time
 
 task = None
 print("Pomodoro intro here!")
 
+
+def get_time(source):
+    times = source.split(":")[::-1]
+    seconds = 0
+    current_multiplier = 1
+    for time in times:
+        seconds += float(time) * current_multiplier
+        current_multiplier *= 60
+    return int(seconds)
+
+
 # signal number and current app frame for the keyboard interrupts
 def stop_timer(signum, frame):
     if task is not None and task.status is not 'stopped':
-        print('Stopping current task:' + task.name + '')
         task.status = "stopped"
-        time.sleep(0.5)
-        sys.stdout.write('\r                                    ')
+        time.sleep(1.5)
+        print('\nStopped current task:' + task.name + '\n')
+        sys.stdout.write('\r')
         sys.stdout.flush()
     else:
         sys.exit(0)
@@ -26,6 +37,7 @@ signal.signal(signal.SIGINT, stop_timer)
 while (True):
     comand = raw_input("pomodoro: ")
     comands = comand.split(" ")
+
     if comands[0] == 'start':
         task = Task(comands[1])
         task.status = 'pending'
@@ -34,13 +46,13 @@ while (True):
             print("Start a task first")
         else:
             if comands[1] == 'time':
-                task.duration = 60 * int(comands[2])
+                task.duration = get_time(comands[2])
             elif comands[1] == 'cycle_time':
-                task.cycle_time = 60 * int(comands[2])
+                task.cycle_time = get_time(comands[2])
             elif comands[1] == 'short_break':
-                task.short_break = 60 * int(comands[2])
+                task.short_break = get_time(comands[2])
             elif comands[1] == 'long_break':
-                task.long_break = 60 * int(comands[2])
+                task.long_break = get_time(comands[2])
             elif comands[1] == 'sound':
                 task.alarm = bool(comands[2])
             else:

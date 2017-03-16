@@ -50,8 +50,9 @@ class Task:
             time.sleep(1)
             self.time_left -= 1
             counter += 1
-            sys.stdout.write('\rTime left: ' + seconds_to_time(self.time_left))
-            sys.stdout.flush()
+            if self.status == 'running':
+                sys.stdout.write('\rTime left: ' + seconds_to_time(self.time_left))
+                sys.stdout.flush()
             # checking for break
             if counter == self.cycle_time:
                 self.current_cycle += 1
