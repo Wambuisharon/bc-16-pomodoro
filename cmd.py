@@ -69,10 +69,11 @@ class MyInteractive (cmd.Cmd):
         """Usage: start <task_name> """
 
         print(tasks.start(arg["<task_name>"]))
+
     def do_config_time(self, arg): 
         """Usage: config_time <task_duration> """
 
-        print(tasks.start(arg["<task_name>"]))
+        print(tasks.start(arg["<start>"]))
 
     def do_config_short_break(self,arg):
         """Usage: config_short_break<short_break>"""

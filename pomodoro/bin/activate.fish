@@ -36,7 +36,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/daisy/Desktop/pomodoro/pomodoro"
+set -gx VIRTUAL_ENV "/home/daisy/Desktop/pomodoro_timer/pomodoro"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

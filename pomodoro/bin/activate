@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/daisy/Desktop/pomodoro/pomodoro"
+VIRTUAL_ENV="/home/daisy/Desktop/pomodoro_timer/pomodoro"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

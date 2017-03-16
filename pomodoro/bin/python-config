@@ -1,4 +1,4 @@
-#!/home/daisy/Desktop/pomodoro/pomodoro/bin/python
+#!/home/daisy/Desktop/pomodoro_timer/pomodoro/bin/python
 
 import sys
 import getopt
