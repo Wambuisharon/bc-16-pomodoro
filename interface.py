@@ -4,15 +4,15 @@
 This example uses docopt with the built in cmd module to demonstrate an
 interactive command application.
 Usage:
-    POMODORO_TIMER start <task_name> 
-    POMODORO_TIMER config_time <task_duration>
-    POMODORO_TIMER config_cycle <cycle>
-    POMODORO_TIMER config_short_break <short_break>
-    POMODORO_TIMER config_long_break  <long_break>
-    POMODORO_TIMER stop <stop>
-    POMODORO_TIMER list <list>
-    POMODORO_TIMER (-i | --interactive)
-    POMODORO_TIMER(-h | --help | --version)
+    interface.py start <task_name> 
+    interface.py config_time <task_duration>
+    interface.py config_cycle <cycle>
+    interface.py config_short_break <short_break>
+    interface.py config_long_break  <long_break>
+    interface.py stop <stop>
+    interface.py list <list>
+    interface.py (-i | --interactive)
+    interface.py (-h | --help | --version)
 Options:
     -i, --interactive  Interactive Mode
     -h, --help  Show this screen and exit.
@@ -60,7 +60,7 @@ def docopt_cmd(func):
 
 class MyInteractive (cmd.Cmd):
     intro = 'POMODORO_TIMER!' \
-        + ' (type help for a list of commands.)' //replace
+        + ' (Time your task.)' 
     prompt = '(POMODORO_TIMER) '
     file = None
 

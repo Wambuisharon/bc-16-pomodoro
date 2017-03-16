@@ -2,6 +2,7 @@ import time, sys
 
 
 class Task:
+    #class variable shared by all instances
     name = ''
     status = 'pending'
     cycle_time = 0
