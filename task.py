@@ -1,4 +1,4 @@
-import time, sys
+import time, sys, os
 
 
 class Task:
@@ -27,7 +27,8 @@ class Task:
             play_sound()
         counter = self.long_break
         while counter > 0:
-            sys.stdout.write('\rLong break Left: ' + seconds_to_time(counter))
+            sys.stdout.write("\033[2J\033[;H")
+            sys.stdout.write(ascii_art('Long break Left: ' + seconds_to_time(counter)))
             sys.stdout.flush()
             time.sleep(1)
             counter -= 1
@@ -37,7 +38,8 @@ class Task:
             play_sound()
         counter = self.short_break
         while counter > 0:
-            sys.stdout.write('\rShort break Left: ' + seconds_to_time(counter))
+            sys.stdout.write("\033[2J\033[;H")
+            sys.stdout.write(ascii_art('Short break Left: ' + seconds_to_time(counter)))
             sys.stdout.flush()
             time.sleep(1)
             counter -= 1
@@ -59,8 +61,8 @@ class Task:
             self.time_left -= 1
             counter += 1
             if self.status == 'running':
-                sys.stdout.write('\r                                                    ')
-                sys.stdout.write('\rTime left: ' + seconds_to_time(self.time_left))
+                sys.stdout.write("\033[2J\033[;H")
+                sys.stdout.write(ascii_art('Time left: ' + seconds_to_time(self.time_left)))
                 sys.stdout.flush()
             # checking for break
             if counter == self.cycle_time:
@@ -81,7 +83,7 @@ class Task:
 def seconds_to_time(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
-    return "%d:%02d:%02d" % (h, m, s)
+    return "%d : %02d : %02d" % (h, m, s)
 
 
 t = Task("Cleaning", 120, 10, 5, 10)
@@ -101,3 +103,10 @@ def play_sound():
             os.system('cvlc ' + uri + ' vlc://quit > /dev/null 2>&1')
 
     (PlayThread()).run()
+
+
+def ascii_art(string):
+    from colorama import init
+    init(strip=not sys.stdout.isatty())  # strip colors if stdout is redirected
+    from pyfiglet import figlet_format
+    return figlet_format(string, font='georgia11')

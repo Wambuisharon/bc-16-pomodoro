@@ -7,7 +7,26 @@ from databases import Storage
 from task import seconds_to_time
 
 task = None
+print ("""
 
+                                                    ,,
+`7MM\"\"\"Mq.                                        `7MM
+  MM   `MM.                                         MM
+  MM   ,M9 ,pW\"Wq.`7MMpMMMb.pMMMb.  ,pW\"Wq.    ,M\"\"bMM  ,pW\"Wq.`7Mb,od8 ,pW\"Wq.
+  MMmmdM9 6W'   `Wb MM    MM    MM 6W'   `Wb ,AP    MM 6W'   `Wb MM' "'6W'   `Wb
+  MM      8M     M8 MM    MM    MM 8M     M8 8MI    MM 8M     M8 MM    8M     M8
+  MM      YA.   ,A9 MM    MM    MM YA.   ,A9 `Mb    MM YA.   ,A9 MM    YA.   ,A9
+.JMML.     `Ybmd9'.JMML  JMML  JMML.`Ybmd9'   `Wbmd"MML.`Ybmd9'.JMML.   `Ybmd9'
+                                         ,,
+                                  mm     db
+                                  MM
+                                mmMMmm `7MM  `7MMpMMMb.pMMMb.  .gP"Ya `7Mb,od8
+                                  MM     MM    MM    MM    MM ,M'   Yb  MM' \"'
+                                  MM     MM    MM    MM    MM 8M""""""  MM
+                                  MM     MM    MM    MM    MM YM.    ,  MM
+                                  `Mbmo.JMML..JMML  JMML  JMML.`Mbmmd'.JMML.
+
+""")
 
 def print_usage():
     print("""
