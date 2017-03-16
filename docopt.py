@@ -4,10 +4,15 @@
 This example uses docopt with the built in cmd module to demonstrate an
 interactive command application.
 Usage:
-    POMODORO TIMER <host> <port> [--timeout=<seconds>]
-    my_program serial <port> [--baud=<n>] [--timeout=<seconds>]
-    my_program (-i | --interactive)
-    my_program (-h | --help | --version)
+    POMODORO_TIMER start <task_name> 
+    POMODORO_TIMER config_time <task_duration>
+    POMODORO_TIMER config_cycle <cycle>
+    POMODORO_TIMER config_short_break <short_break>
+    POMODORO_TIMER config_long_break  <long_break>
+    POMODORO_TIMER stop <stop>
+    POMODORO_TIMER list <list>
+    POMODORO_TIMER (-i | --interactive)
+    POMODORO_TIMER(-h | --help | --version)
 Options:
     -i, --interactive  Interactive Mode
     -h, --help  Show this screen and exit.
