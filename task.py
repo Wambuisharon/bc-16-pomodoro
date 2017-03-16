@@ -1,62 +1,92 @@
-#!/usr/bin/env python
-from __future__ import print_function
-import signal, sys, time
-
-from task import Task
-from databases import Storage
-from task import seconds_to_time
-
-task = None
-print("Pomodoro intro here!")
-
-# signal number and current app frame for the keyboard interrupts
-def stop_timer(signum, frame):
-    if task is not None and task.status is not 'stopped':
-        print('Stopping current task:' + task.name + '')
-        task.status = "stopped"
-        time.sleep(0.5)
-        sys.stdout.write('\r                                    ')
-        sys.stdout.flush()
-    else:
-        sys.exit(0)
+import time, sys
 
 
-signal.signal(signal.SIGINT, stop_timer)
+class Task:
+    name = ''
+    status = 'pending'
+    cycle_time = 0
+    duration = 0
+    short_break = 0
+    long_break = 0
+    current_cycle = 0
+    time_left = 0
+    alarm = True
+    day = ''
 
-while (True):
-    comand = raw_input("pomodoro: ")
-    comands = comand.split(" ")
-    if comands[0] == 'start':
-        task = Task(comands[1])
-        task.status = 'pending'
-    elif comands[0] == 'config':
-        if task is None:
-            print("Start a task first")
-        else:
-            if comands[1] == 'time':
-                task.duration = 60 * int(comands[2])
-            elif comands[1] == 'cycle_time':
-                task.cycle_time = 60 * int(comands[2])
-            elif comands[1] == 'short_break':
-                task.short_break = 60 * int(comands[2])
-            elif comands[1] == 'long_break':
-                task.long_break = 60 * int(comands[2])
-            elif comands[1] == 'sound':
-                task.alarm = bool(comands[2])
-            else:
-                print("Invalid command")
-    elif comands[0] == 'run':
-        if task is None:
-            print("Start a task first")
-        else:
-            task.status = 'running'
-            db = Storage()
-            db.save(task)
-            db.close()
-            task.start()
-    elif comands[0] == 'list':
-        db = Storage()
-        for task in db.get():
-            print("Name: %s, Duration:  %s,  Cycle Time: %s, Short Break %s, Long Break %s, Alarm %s, Status %s" % (
-                task.name, seconds_to_time(task.duration), seconds_to_time(task.cycle_time),
-                seconds_to_time(task.short_break), seconds_to_time(task.long_break), str(task.alarm), task.status))
+    def __init__(self, name, duration=6000, cycle_time=1500, short_break=360, long_break=600, day='', alarm=True):
+        self.name = name
+        self.cycle_time = cycle_time
+        self.short_break = short_break
+        self.long_break = long_break
+        self.duration = duration
+        self.alarm = alarm
+        self.day = day
+
+    def go_long_break(self):
+        if self.alarm:
+            play_sound()
+        counter = self.long_break
+        while counter > 0:
+            sys.stdout.write('\rLong break Left: ' + seconds_to_time(counter))
+            sys.stdout.flush()
+            time.sleep(1)
+            counter -= 1
+
+    def go_short_break(self):
+        if self.alarm:
+            play_sound()
+        counter = self.short_break
+        while counter > 0:
+            sys.stdout.write('\rShort break Left: ' + seconds_to_time(counter))
+            sys.stdout.flush()
+            time.sleep(1)
+            counter -= 1
+
+    def start(self):
+        self.status = 'running'
+        self.time_left = self.duration
+        counter = 0
+        while self.status == 'running' and self.time_left > 0:
+            time.sleep(1)
+            self.time_left -= 1
+            counter += 1
+            sys.stdout.write('\rTime left: ' + seconds_to_time(self.time_left))
+            sys.stdout.flush()
+            # checking for break
+            if counter == self.cycle_time:
+                self.current_cycle += 1
+                if self.current_cycle % 4 == 0:
+                    self.go_long_break()
+                else:
+                    self.go_short_break()
+                # reset break counter
+                counter = 0
+                if self.alarm:
+                    play_sound()
+
+        if self.alarm:
+            play_sound()
+
+
+def seconds_to_time(seconds):
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    return "%d:%02d:%02d" % (h, m, s)
+
+
+t = Task("Cleaning", 120, 10, 5, 10)
+
+
+# t.start()
+
+
+def play_sound():
+    import os, threading
+    class PlayThread(threading.Thread):
+        def __init__(self):
+            threading.Thread.__init__(self)
+        def run(self):
+            uri = "bell.mp3"
+            os.system('cvlc ' + uri + ' vlc://quit > /dev/null 2>&1')
+
+    (PlayThread()).run()

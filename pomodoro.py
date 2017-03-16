@@ -3,7 +3,7 @@ from __future__ import print_function
 import signal, sys, time
 
 from task import Task
-from database import Storage
+from databases import Storage
 from task import seconds_to_time
 
 task = None
