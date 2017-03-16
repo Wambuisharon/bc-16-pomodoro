@@ -43,14 +43,23 @@ class Task:
             counter -= 1
 
     def start(self):
+        if isinstance(self.alarm, str):
+            if self.alarm.lower() == 'on':
+                self.alarm = True
+            else:
+                self.alarm = False
+        else:
+            self.alarm = bool(self.alarm)
         self.status = 'running'
         self.time_left = self.duration
+
         counter = 0
         while self.status == 'running' and self.time_left > 0:
             time.sleep(1)
             self.time_left -= 1
             counter += 1
             if self.status == 'running':
+                sys.stdout.write('\r                                                    ')
                 sys.stdout.write('\rTime left: ' + seconds_to_time(self.time_left))
                 sys.stdout.flush()
             # checking for break
@@ -86,6 +95,7 @@ def play_sound():
     class PlayThread(threading.Thread):
         def __init__(self):
             threading.Thread.__init__(self)
+
         def run(self):
             uri = "bell.mp3"
             os.system('cvlc ' + uri + ' vlc://quit > /dev/null 2>&1')
